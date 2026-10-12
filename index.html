@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Table-Filling DFA Engine</title>
+<meta name="description" content="Enter an unminimized DFA table and get its distinguishable pairs, its Myhill-Nerode equivalence classes and the minimal DFA, step by step.">
+<meta name="theme-color" content="#1b4f8a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <img src="icons/favicon.svg" width="36" height="36" alt="">
+    <div>
+      <h1>Table-Filling DFA Engine</h1>
+      <p>Myhill-Nerode equivalence classes of an unminimized DFA</p>
+    </div>
+  </div>
+  <div class="actions">
+    <button id="installBtn" class="sec" type="button">Install app</button>
+    <button id="themeBtn" class="sec" type="button" aria-label="Switch colour theme">Theme</button>
+  </div>
+</header>
+
+<main class="app">
+  <aside id="editor" class="card" aria-label="DFA input"></aside>
+  <section class="results" aria-label="Results">
+    <div id="summary"></div>
+    <div id="tabs" role="tablist" aria-label="Result views"></div>
+    <div id="panel" class="card" role="tabpanel" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>Theory of Computation, TAE-II seminar project. Runs fully in your browser.</span>
+  <nav><a href="privacy.html">Privacy policy</a> <a href="terms.html">Terms and conditions</a></nav>
+</footer>
+
+<dialog id="installHelp">
+  <h2>Install this app</h2>
+  <p>Your browser has not offered a one-click install. Use the option for your browser:</p>
+  <ul>
+    <li><strong>Chrome or Edge on desktop:</strong> click the install icon at the right end of the address bar, or open the browser menu and choose Install.</li>
+    <li><strong>Safari on Mac:</strong> File menu, Add to Dock.</li>
+    <li><strong>Safari on iPhone or iPad:</strong> Share, then Add to Home Screen.</li>
+    <li><strong>Chrome on Android:</strong> menu, Install app.</li>
+  </ul>
+  <p class="hint">Installing needs the page to be served over HTTPS (or localhost), not opened as a file.</p>
+  <form method="dialog"><button class="pri">Close</button></form>
+</dialog>
+
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

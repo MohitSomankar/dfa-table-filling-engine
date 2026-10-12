@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "Table-Filling DFA Engine",
+  "short_name": "DFA Engine",
+  "description": "Enter an unminimized DFA table and get its Myhill-Nerode equivalence classes and the minimal DFA, step by step.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2f4f5",
+  "theme_color": "#1b4f8a",
+  "categories": ["education", "utilities"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

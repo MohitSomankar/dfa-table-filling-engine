@@ -305,7 +305,7 @@
     ].join('');
     return '<div class="ctrl"><div class="seg" role="group" aria-label="Which DFA to draw"><button type="button" data-act="diag" data-v="min" aria-pressed="' + (diag === 'min') + '">Minimal DFA</button>' +
       '<button type="button" data-act="diag" data-v="orig" aria-pressed="' + (diag === 'orig') + '">Original DFA</button></div></div>' +
-      diagram(d) + '<p class="note" style="margin-top:6px">Double circle: accepting state. Arrow from nowhere: start state. Original DFA shown with all ' + R.dfa.states.length + ' states' + (R.unreachable.length ? ', including the unreachable ' + R.unreachable.map(esc).join(', ') : '') + '.</p>' +
+      diagram(d) + '<p class="note" style="margin-top:6px">Double circle: accepting state. Arrow from nowhere: start state. ' + (diag === 'min' ? 'Minimal DFA shown: one state for each equivalence class.' : 'Original DFA shown with all ' + R.dfa.states.length + ' states' + (R.unreachable.length ? ', including the unreachable ' + R.unreachable.map(esc).join(', ') : '') + '.') + '</p>' +
       '<div class="cols"><div><h3>Minimal DFA transition table</h3>' + dfaTable(R.minimal) + '</div><div><h3>Correctness checks</h3><ul class="plain">' + checks + '</ul></div></div>';
   }
 

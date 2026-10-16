@@ -70,7 +70,7 @@ ul.plain li{margin-bottom:5px}
 .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:12px}
 @media (max-width:760px){.cols{grid-template-columns:minmax(0,1fr)}}
 .box{background:var(--sf2);border:1px solid var(--ln);border-radius:6px;padding:10px 12px}
-.trace{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;margin:4px 0;overflow-x:auto;white-space:nowrap}
+.trace{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;margin:4px 0;overflow-wrap:anywhere}
 .ok{color:var(--ok);font-weight:700}.no{color:var(--bad);font-weight:700}
 .dt{width:100%;border-collapse:collapse;font-size:.86rem}
 .dt th,.dt td{border:1px solid var(--ln);padding:6px 9px;text-align:left;vertical-align:top}
@@ -90,8 +90,8 @@ svg.dia{width:100%;height:auto;max-height:480px;display:block;background:var(--b
 .seg button{border:0;border-radius:0;background:transparent;color:var(--ac);font-weight:500}
 .seg button[aria-pressed="true"]{background:var(--ac);color:var(--acon);font-weight:700}
 .seg button:hover{box-shadow:none}
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media (max-width:640px){.cmp{grid-template-columns:1fr}}
+.cmp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media (max-width:640px){.cmp{grid-template-columns:minmax(0,1fr)}}
 .foot{max-width:1280px;margin:0 auto;padding:8px 20px 28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--mu);font-size:.82rem}
 .foot nav{display:flex;gap:14px}
 dialog{border:1px solid var(--ln);border-radius:8px;background:var(--sf);color:var(--ink);max-width:460px}

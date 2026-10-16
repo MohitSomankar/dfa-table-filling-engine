@@ -1,5 +1,5 @@
 /* Offline cache. Bump VERSION whenever any file below changes so installed copies update. */
-const VERSION = 'dfa-engine-v1';
+const VERSION = 'dfa-engine-v2';
 const FILES = ['./', 'index.html', 'styles.css', 'engine.js', 'app.js', 'manifest.webmanifest',
   'privacy.html', 'terms.html', 'icons/favicon.svg', 'icons/icon-192.png', 'icons/icon-512.png',
   'icons/maskable-512.png', 'icons/apple-touch-icon.png'];

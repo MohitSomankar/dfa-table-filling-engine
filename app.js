@@ -7,7 +7,7 @@
   const clone = (o) => JSON.parse(JSON.stringify(o));
   const TABS = [['fill', 'Table filling'], ['classes', 'Classes'], ['min', 'Minimal DFA'], ['test', 'Test a string'], ['suite', 'Test suite'], ['theory', 'Theory']];
 
-  let presetIdx = 0, model = clone(E.PRESETS[0].model), R = null, errors = [];
+  let custom = false, presetIdx = 0, model = clone(E.PRESETS[0].model), R = null, errors = [];
   let tab = 'fill', frame = 0, sel = null, diag = 'min', testStr = '', playTimer = null, typeTimer = null, suiteRows = null;
 
   /* ---------- editor ---------- */
@@ -17,14 +17,16 @@
     $('#editor').innerHTML =
       '<h2>DFA input</h2>' +
       '<label for="preset">Load an example</label>' +
-      '<select id="preset"><optgroup label="Valid DFAs">' + opts('valid') + '</optgroup><optgroup label="Invalid inputs">' + opts('invalid') + '</optgroup></select>' +
+      '<div class="pick"><select id="preset">' + (custom ? '<option value="-1">Custom DFA (yours)</option>' : '') + '<optgroup label="Valid DFAs">' + opts('valid') + '</optgroup><optgroup label="Invalid inputs">' + opts('invalid') + '</optgroup></select>' +
+      '<button id="customBtn" class="pri" type="button" title="Start a blank DFA and build your own">Customize</button></div>' +
+      (custom ? '<p class="guide"><strong>Build your own DFA.</strong> Set the alphabet, start state and accepting states, then type the target state in every cell of the transition table. Use Add state for more rows. Results appear as soon as the table is complete.</p>' : '') +
       '<div class="field"><label for="alpha">Alphabet</label><input id="alpha" data-f="alpha" value="' + esc(model.alphabet.join(', ')) + '" autocomplete="off" spellcheck="false"><div class="hint">Single characters, comma separated</div></div>' +
       '<div class="two"><div class="field"><label for="start">Start state</label><input id="start" data-f="start" value="' + esc(model.start) + '" autocomplete="off" spellcheck="false"></div>' +
       '<div class="field"><label for="acc">Accepting states</label><input id="acc" data-f="acc" value="' + esc(model.accepting) + '" autocomplete="off" spellcheck="false"></div></div>' +
       '<h3>Transition table</h3><div class="scroll" id="tbl"></div><datalist id="sl"></datalist>' +
       '<p class="hint">Row label: \u2192 start state, * accepting state. Type the target state in each cell.</p>' +
       '<div class="row"><button id="addState" class="sec" type="button">Add state</button><button id="clearAll" class="sec" type="button">Clear</button></div>';
-    $('#preset').value = String(presetIdx);
+    $('#preset').value = custom ? '-1' : String(presetIdx);
     renderTable();
   }
   function renderTable() {
@@ -66,7 +68,7 @@
   $('#editor').addEventListener('focusin', (e) => { if (e.target.dataset.f === 'name') e.target.dataset.old = e.target.value; });
   $('#editor').addEventListener('change', (e) => {
     const el = e.target;
-    if (el.id === 'preset') { loadPreset(+el.value, false); return; }
+    if (el.id === 'preset') { if (+el.value >= 0) loadPreset(+el.value, false); return; }
     if (el.dataset.f !== 'name') return;
     const o = (el.dataset.old || '').trim(), n = el.value.trim();
     if (o && n && o !== n) {   // keep every reference consistent when a state is renamed
@@ -82,11 +84,19 @@
     if (!b) return;
     if (b.dataset.rm !== undefined) { model.rows.splice(+b.dataset.rm, 1); renderTable(); compute(); }
     else if (b.id === 'addState') { model.rows.push({ name: nextName(), t: model.alphabet.map(() => '') }); renderTable(); compute(); }
-    else if (b.id === 'clearAll') { model = { alphabet: ['0', '1'], rows: [], start: '', accepting: '' }; presetIdx = 0; renderEditor(); compute(); }
+    else if (b.id === 'clearAll') { custom = false; model = { alphabet: ['0', '1'], rows: [], start: '', accepting: '' }; presetIdx = 0; renderEditor(); compute(); }
+    else if (b.id === 'customBtn') startCustom();
   });
 
+  function startCustom() {
+    custom = true; tab = 'fill';
+    model = { alphabet: ['0', '1'], start: 'A', accepting: '', rows: [{ name: 'A', t: ['', ''] }, { name: 'B', t: ['', ''] }] };
+    renderEditor(); compute();
+    const first = document.querySelector('#tbl input[data-f="t"]');
+    if (first) first.focus();
+  }
   function loadPreset(i, jump) {
-    presetIdx = i; model = clone(E.PRESETS[i].model);
+    custom = false; presetIdx = i; model = clone(E.PRESETS[i].model);
     renderEditor();
     if (jump) tab = 'fill';
     compute();
